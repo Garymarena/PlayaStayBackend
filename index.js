@@ -9,6 +9,7 @@ import roomsRoute from "./routes/rooms.js";
 const app = express();
 dotenv.config();
 
+//mongoDB connection
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
@@ -23,6 +24,9 @@ mongoose.connection.on("disconnected", () => {
 });
 
 //middlewares
+
+app.use(express.json());
+
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/users", usersRoute);
 app.use("/api/v1/condos", condosRoute);
