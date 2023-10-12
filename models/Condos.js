@@ -41,7 +41,7 @@ const CondosSchema = new mongoose.Schema({
   rooms: {
     type: [String],
   },
-  cheapestPRice: {
+  cheapestPrice: {
     type: Number,
     required: true,
   },
