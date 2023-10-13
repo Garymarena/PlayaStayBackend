@@ -1,5 +1,6 @@
 import express from "express";
 import Condos from "../models/Condos.js";
+import { createError } from "../utils/error.js";
 
 const router = express.Router();
 
@@ -48,12 +49,12 @@ router.get("/:id", async (req, res) => {
   }
 });
 //Get All
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const Condos = await Condos.find();
     res.status(200).json(Condos);
   } catch (err) {
-    res.status(500).json(err);
+    next(err);
   }
 });
 
