@@ -16,20 +16,45 @@ router.post("/", async (req, res) => {
 });
 //Update
 router.put("/:id", async (req, res) => {
-  const updateCondo = Condos(req.body);
   try {
-    const updateCondo = await Condo.findByIdAndUpdate(req.params.id, {
-      $set: req.body,
-    });
-    res.status(200).json(updateCondo);
+    const updatedCondo = await Condos.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedCondo);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 //Delete
-
+router.delete("/:id", async (req, res) => {
+  try {
+    await Condos.findByIdAndDelete(req.params.id);
+    res.status(200).json("Condo has been deleted");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 //Get
-
+router.get("/:id", async (req, res) => {
+  try {
+    const Condo = await Condos.findById(req.params.id);
+    res.status(200).json(Condo);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 //Get All
+router.get("/", async (req, res) => {
+  try {
+    const Condos = await Condos.find();
+    res.status(200).json(Condos);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 export default router;
