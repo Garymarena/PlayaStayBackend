@@ -5,16 +5,7 @@ import { createError } from "../utils/error.js";
 const router = express.Router();
 
 //Create
-router.post("/", async (req, res) => {
-  const newCondo = new Condos(req.body);
-
-  try {
-    const saveCondo = await newCondo.save();
-    res.status(200).json(savedCondo);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.post("/", createCondo);
 //Update
 router.put("/:id", async (req, res) => {
   try {
